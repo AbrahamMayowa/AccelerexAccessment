@@ -5,9 +5,9 @@ import * as bodyParser from 'body-parser';
 import router from './routes';
 import { Character, Comment, Episode, Location } from './entity';
 import { generalError } from './controller/errorControllers';
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 
-config()
+config();
 
 createConnection({
   type: 'mysql',
