@@ -122,11 +122,10 @@ export const getCharacters = async (
       // using location to filter characters
       if (filterKey === 'location') {
         queredCharacters = await getRepository(Character)
-        .createQueryBuilder("character")
-        .innerJoin("character.location", "location")
-        .where("location.name= :name", { name: filterValue })
-        .getMany();
-
+          .createQueryBuilder('character')
+          .innerJoin('character.location', 'location')
+          .where('location.name= :name', { name: filterValue })
+          .getMany();
       } else {
         queredCharacters = await characterRespository.find({
           where: {
@@ -134,7 +133,6 @@ export const getCharacters = async (
           }
         });
       }
-      
 
       // query to be filtered and sorted
     } else if (filterValue && sortValue) {
