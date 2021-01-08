@@ -1,1 +1,1 @@
-export * from './EpisodeCharacter'
+export * from './episodeCharacter';

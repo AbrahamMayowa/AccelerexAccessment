@@ -1,1 +1,1 @@
-export * from './CharacterController';
+export * from './characterController';
