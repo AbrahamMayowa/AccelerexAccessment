@@ -119,11 +119,22 @@ export const getCharacters = async (
         });
       }
 
-      queredCharacters = await characterRespository.find({
-        where: {
-          [filterKey]: filterValue
-        }
-      });
+      // using location to filter characters
+      if (filterKey === 'location') {
+        queredCharacters = await getRepository(Character)
+        .createQueryBuilder("character")
+        .innerJoin("character.location", "location")
+        .where("location.name= :name", { name: filterValue })
+        .getMany();
+
+      } else {
+        queredCharacters = await characterRespository.find({
+          where: {
+            [filterKey]: filterValue
+          }
+        });
+      }
+      
 
       // query to be filtered and sorted
     } else if (filterValue && sortValue) {
