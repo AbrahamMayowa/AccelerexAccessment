@@ -1,7 +1,8 @@
-import { getRepository, Repository } from 'typeorm';
-import { NextFunction, Request, Response } from 'express';
+import { getRepository } from 'typeorm';
+import { Request, Response } from 'express';
 import { Character, Episode } from '../../entity';
-import { SUCCESS_RESPONSE_STATUS, FAILE_RESPONSE_STATUS } from '../constants';
+import { SUCCESS_RESPONSE_STATUS } from '../constants';
+import { NON_EXIST } from './constants';
 
 /***
  * @description endpoint for creating episode
@@ -11,7 +12,10 @@ import { SUCCESS_RESPONSE_STATUS, FAILE_RESPONSE_STATUS } from '../constants';
  * @param next
  *
  */
-export const createEpidsode = async (req: Request, res: Response) => {
+export const createEpidsode = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { name, releaseDate, episodeCode, characterArray } = req.body;
     const characterRespository = getRepository(Character);
@@ -40,7 +44,7 @@ export const createEpidsode = async (req: Request, res: Response) => {
  * @param req
  * @param res
  */
-export const episodes = async (req: Request, res: Response) => {
+export const episodes = async (req: Request, res: Response): Promise<void> => {
   try {
     const episodeRespository = getRepository(Episode);
     const episodes = await episodeRespository.find({
@@ -68,7 +72,15 @@ export const episodes = async (req: Request, res: Response) => {
   }
 };
 
-export const episodeByCharacter = async (req: Request, res: Response) => {
+/**
+ * @description search episode by a character
+ * @param req
+ * @param res
+ */
+export const episodeByCharacter = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { characterId } = req.params;
     const characterRespository = getRepository(Character);
@@ -76,16 +88,12 @@ export const episodeByCharacter = async (req: Request, res: Response) => {
       relations: ['episodes']
     });
     if (!episodeCharacter) {
-      return res
-        .status(404)
-        .send({ status: 'error', message: 'Character does not exist' });
+      return res.status(404).send({ status: 'error', message: NON_EXIST });
     }
-    res
-      .status(200)
-      .send({
-        status: SUCCESS_RESPONSE_STATUS,
-        data: episodeCharacter.episodes
-      });
+    res.status(200).send({
+      status: SUCCESS_RESPONSE_STATUS,
+      data: episodeCharacter.episodes
+    });
   } catch (error) {
     res.status(400).send({ status: 'error', message: error.message });
   }

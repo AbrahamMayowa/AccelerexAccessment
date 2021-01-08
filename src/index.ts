@@ -20,7 +20,7 @@ createConnection({
   logging: false,
   entities: [Character, Location, Comment, Episode]
 })
-  .then(async (connection) => {
+  .then(async () => {
     const port = 3000;
     // create express app
     const app = express();

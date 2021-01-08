@@ -1,10 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
-export const generalError = (
-  error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const generalError = (error: Error, _: Request, res: Response): void => {
   res.status(500).send({ status: 'error', message: error.message });
 };

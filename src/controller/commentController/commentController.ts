@@ -1,7 +1,7 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import { Character, Episode, Location, Comment } from '../../entity';
-import { SUCCESS_RESPONSE_STATUS, FAILE_RESPONSE_STATUS } from '../constants';
+import { Episode, Comment } from '../../entity';
+import { SUCCESS_RESPONSE_STATUS } from '../constants';
 import { getClientIp } from 'request-ip';
 
 /***
@@ -16,7 +16,7 @@ export const createComment = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const { comment, episodeId } = req.body;
     const episodeRespository = getRepository(Episode);
@@ -42,6 +42,24 @@ export const createComment = async (
     res
       .status(201)
       .send({ status: SUCCESS_RESPONSE_STATUS, data: savedComment });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const comments = async (
+  _: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const commentRespository = getRepository(Comment);
+    const comments = await commentRespository.find({
+      order: {
+        created: 'DESC'
+      }
+    });
+    res.status(200).send({ status: SUCCESS_RESPONSE_STATUS, data: comments });
   } catch (err) {
     next(err);
   }

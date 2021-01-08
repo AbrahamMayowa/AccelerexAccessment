@@ -8,7 +8,7 @@ import {
   episodes,
   episodeByCharacter
 } from './controller/episodeController';
-import { createComment } from './controller/commentController';
+import { createComment, comments } from './controller/commentController';
 
 const router = Router();
 
@@ -18,5 +18,6 @@ router.post('/createEpisode', createEpidsode);
 router.get('/episode', episodes);
 router.get('/episodeCharacter/:characterId', episodeByCharacter);
 router.post('/createComment', createComment);
+router.get('/comments', comments);
 
 export default router;

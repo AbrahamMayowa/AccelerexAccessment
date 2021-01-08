@@ -1,6 +1,6 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import { Character, Episode, Location } from '../../entity';
+import { Character, Location } from '../../entity';
 import { SUCCESS_RESPONSE_STATUS, FAILE_RESPONSE_STATUS } from '../constants';
 import {
   GENERAL_UNSUPPORTED_MESSAGE,
@@ -20,7 +20,7 @@ export const createCharacter = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const {
       firstName,
@@ -67,9 +67,8 @@ export const createCharacter = async (
  */
 export const getCharacters = async (
   req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+  res: Response
+): Promise<void> => {
   try {
     const { sortValue, filterValue, filterKey } = req.query;
     const characterRespository = getRepository(Character);
