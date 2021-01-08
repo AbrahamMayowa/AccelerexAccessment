@@ -68,7 +68,7 @@ export const createCharacter = async (
 export const getCharacters = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<unknown> => {
   try {
     const { sortValue, filterValue, filterKey } = req.query;
     const characterRespository = getRepository(Character);
