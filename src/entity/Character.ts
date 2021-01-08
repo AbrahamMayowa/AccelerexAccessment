@@ -57,9 +57,7 @@ export class Character {
   @JoinColumn()
   location: Location;
 
-  @ManyToMany(() => Episode, (episode) => episode.characters, {
-    cascade: true
-  })
+  @ManyToMany(() => Episode, (episode) => episode.characters)
   episodes: Episode[];
 
   @CreateDateColumn({

@@ -28,7 +28,9 @@ export class Episode {
   })
   episodeCode: string;
 
-  @ManyToMany(() => Character, (character) => character.episodes)
+  @ManyToMany(() => Character, (character) => character.episodes, {
+    cascade: true
+  })
   @JoinTable()
   characters: Character[];
 

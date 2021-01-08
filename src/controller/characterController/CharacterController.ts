@@ -70,7 +70,7 @@ export const getCharacters = async (
   next: NextFunction
 ) => {
   try {
-    const { sortValue, filterValue, filterKey } = req.params;
+    const { sortValue, filterValue, filterKey } = req.query;
     const characterRespository = getRepository(Character);
     const supportedFilterKey = ['gender', 'status', 'location'];
     const supportedSortValue = ['name', 'gender'];
@@ -88,11 +88,22 @@ export const getCharacters = async (
           message: `${sortValue} ${SORTING_ERROR}`
         });
       }
-      queredCharacters = await characterRespository.find({
-        order: {
-          [sortValue]: 'DESC'
-        }
-      });
+      // sort using the firstName and lastName column of the character
+      if (sortValue === 'name') {
+        queredCharacters = await characterRespository.find({
+          order: {
+            firstName: 'DESC',
+            lastName: 'DESC'
+          }
+        });
+      } else {
+        queredCharacters = await characterRespository.find({
+          order: {
+            [sortValue]: 'DESC'
+          }
+        });
+      }
+      
 
       // query to be filtered only
     } else if (filterValue && !sortValue) {
@@ -143,7 +154,6 @@ export const getCharacters = async (
       .status(200)
       .send({ status: SUCCESS_RESPONSE_STATUS, data: queredCharacters });
   } catch (err) {
-    console.log(err);
-    next(err);
+    res.status(400).send({ status: 'error', message: err.message });
   }
 };
