@@ -7,6 +7,7 @@ import {
   SORTING_ERROR,
   FILTER_ERROR
 } from './constants';
+
 /***
  * @description endpoint for creating character
  * @returns {Object} the result of the api request

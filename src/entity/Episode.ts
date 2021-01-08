@@ -34,7 +34,7 @@ export class Episode {
   @JoinTable()
   characters: Character[];
 
-  @OneToMany(() => Comment, (comment) => comment.episode, { cascade: true })
+  @OneToMany(() => Comment, (comment) => comment.episode)
   comments: Comment[];
 
   @CreateDateColumn({

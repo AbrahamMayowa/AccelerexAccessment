@@ -21,7 +21,8 @@ export class Comment {
   comment: string;
 
   @ManyToOne(() => Episode, (episode) => episode.comments, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    cascade: true
   })
   episode: Episode;
 
