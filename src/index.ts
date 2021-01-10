@@ -23,7 +23,7 @@ createConnection({
   entities: [Character, Location, Comment, Episode]
 })
   .then(async () => {
-    const port = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3000;
     // create express app
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,6 +35,6 @@ createConnection({
     app.use(generalError);
 
     // start express server
-    app.listen(port, () => console.log(`Server ready on ${port}`));
+    app.listen(PORT, () => console.log(`Server ready on ${PORT}`));
   })
   .catch((error) => console.log(error));
