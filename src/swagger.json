@@ -312,163 +312,163 @@
             }
         }
         
-    },
-    "/episodeCharacter/{characterId}": {
-        "parameters": [
-            {
-                "name": "characterId",
-                "in": "path",
-                "required": true,
-                "description": "ID of the character",
-                "type": "string"
-            }
-        ],
-        "get": {
-        "tags": [
-            "Episode"
-        ],
-        "summary": "All episode a character featured in",
-        
-        "produces": [
-            "application/json"
-        ],
-        "responses": {
-            "200": {
-                "description": "Character's episodes list successfully ",
-                "content": {
-                    "application/json": {
-                "schema": {
-                    "type": "object",
-                        "properties": {
-                            "status": {
-                                "type":"string",
-                                "description":"Request status message"
-                            },
-                            "data": {
-                                "type":"array",
-                                "items": {
-                                    "type": "object",
-                                "properties":{
-                            "id": {
-                                "type": "string",
-                                "description": "The auto-generated id of the episode."
-                            },
-                            "name": {
-                                "type": "string",
-                                "description": "The episode name."
-                            },
-                            "episodeCode": {
-                                "type": "string",
-                                "description": "The unique episode code"
-                            },
-                            "releaseDate": {
-                                "type": "string",
-                                "format":"date",
-                                "description": "Episode release date"
-                            },
-                            "created": {
-                                "type": "string",
-                                "format": "date",
-                                "description": "The date of the comment creation."
+        },
+        "/episodeCharacter/{characterId}": {
+            "parameters": [
+                {
+                    "name": "characterId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the character",
+                    "type": "string"
+                }
+            ],
+            "get": {
+            "tags": [
+                "Episode"
+            ],
+            "summary": "All episode a character featured in",
+            
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Character's episodes list successfully ",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type":"string",
+                                    "description":"Request status message"
+                                },
+                                "data": {
+                                    "type":"array",
+                                    "items": {
+                                        "type": "object",
+                                    "properties":{
+                                "id": {
+                                    "type": "string",
+                                    "description": "The auto-generated id of the episode."
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "The episode name."
+                                },
+                                "episodeCode": {
+                                    "type": "string",
+                                    "description": "The unique episode code"
+                                },
+                                "releaseDate": {
+                                    "type": "string",
+                                    "format":"date",
+                                    "description": "Episode release date"
+                                },
+                                "created": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "The date of the comment creation."
+                                }
                             }
                         }
-                    }
-                    }
-                }
-            }
-                }
-                }
-            },
-            "400": {
-                "description": "Failed. Bad request.",
-                "content": {
-                    "application/json": {
-                "schema": {
-                    "$ref":"#/definitions/errorObject"
-                }
-            }
-        }
-            },
-            "500": {
-                "description": "Failed. Bad request",
-                "content": {
-                    "application/json": {
-                "schema": {
-                    "$ref":"#/definitions/errorObject"
-                }
-            }
-        }
-    }
-        }
-    }
-},
-"/comments": {
-    "get": {
-    "tags": [
-        "Comment"
-    ],
-    "summary": "The comment list",
-    "produces": [
-        "application/json"
-    ],
-    "responses": {
-        "200": {
-            "description": "Comment list successfully fetched",
-            "content": {
-                "application/json": {
-            "schema": {
-                "type": "object",
-                    "properties": {
-                        "status": {
-                            "type":"string",
-                            "description":"Request status message"
-                        },
-                        "data": {
-                            "type":"array",
-                            "items":{
-                            "type": "object",
-                            "description": "Response data",
-                            "properties":{
-                        "id": {
-                            "type": "string",
-                            "description": "The auto-generated id of the comment."
-                        },
-                        "comment": {
-                            "type": "string",
-                            "description": "The comment text."
-                        },
-                        "ipAddressLocation": {
-                            "type": "string",
-                            "description": "The commentor ip address"
-                        },
-                        "created": {
-                            "type": "string",
-                            "format": "date",
-                            "description": "The date of the comment creation."
                         }
                     }
                 }
+                    }
+                    }
+                },
+                "400": {
+                    "description": "Failed. Bad request.",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
+                }
+            }
+                },
+                "500": {
+                    "description": "Failed. Bad request",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
                 }
             }
         }
             }
-            }
+        }
         },
-        "500": {
-            "description": "Failed. Bad request",
-            "content": {
-                "application/json": {
-            "schema": {
-                "$ref":"#/definitions/errorObject"
+        "/comments": {
+            "get": {
+            "tags": [
+                "Comment"
+            ],
+            "summary": "The comment list",
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Comment list successfully fetched",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type":"string",
+                                    "description":"Request status message"
+                                },
+                                "data": {
+                                    "type":"array",
+                                    "items":{
+                                    "type": "object",
+                                    "description": "Response data",
+                                    "properties":{
+                                "id": {
+                                    "type": "string",
+                                    "description": "The auto-generated id of the comment."
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "The comment text."
+                                },
+                                "ipAddressLocation": {
+                                    "type": "string",
+                                    "description": "The commentor ip address"
+                                },
+                                "created": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "The date of the comment creation."
+                                }
+                            }
+                        }
+                        }
+                    }
+                }
+                    }
+                    }
+                },
+                "500": {
+                    "description": "Failed. Bad request",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                        }
+                    }
                 }
             }
+            }
         }
-    }
-    }
-}
 
-}
-},
+        }
+    },
         
     "definitions": {
         "errorObject": {
