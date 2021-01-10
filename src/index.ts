@@ -13,7 +13,7 @@ config();
 
 createConnection({
   type: 'mysql',
-  host: 'localhost',
+  host: process.env.DATABASE_HOST,
   port: 3306,
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
@@ -23,13 +23,13 @@ createConnection({
   entities: [Character, Location, Comment, Episode]
 })
   .then(async () => {
-    const port = 5000;
+    const port = process.env.PORT || 3000;
     // create express app
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
-    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     app.use(router);
 
     app.use(generalError);

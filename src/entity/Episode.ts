@@ -9,9 +9,6 @@ import {
 } from 'typeorm';
 import { Character, Comment } from './index';
 
-
-
-
 @Entity()
 export class Episode {
   @PrimaryGeneratedColumn('uuid')
