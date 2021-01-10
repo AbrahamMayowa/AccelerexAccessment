@@ -12,11 +12,12 @@ import { getClientIp } from 'request-ip';
  * @param next
  *
  */
+
 export const createComment = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+): Promise<unknown> => {
   try {
     const { comment, episodeId } = req.body;
     const episodeRespository = getRepository(Episode);
@@ -25,7 +26,7 @@ export const createComment = async (
     // user request ip address
     const clientIp = getClientIp(req);
 
-    const episode = await episodeRespository.findOne(episodeId);
+    const episode = await episodeRespository.findOne({ id: episodeId });
     if (!episode) {
       return res
         .status(404)

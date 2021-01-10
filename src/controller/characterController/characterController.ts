@@ -7,6 +7,7 @@ import {
   SORTING_ERROR,
   FILTER_ERROR
 } from './constants';
+import { IGetCharacterQuery } from './types';
 
 /***
  * @description endpoint for creating character
@@ -70,7 +71,7 @@ export const getCharacters = async (
   res: Response
 ): Promise<unknown> => {
   try {
-    const { sortValue, filterValue, filterKey } = req.query;
+    const { sortValue, filterValue, filterKey }: IGetCharacterQuery = req.query;
     const characterRespository = getRepository(Character);
     const supportedFilterKey = ['gender', 'status', 'location'];
     const supportedSortValue = ['name', 'gender'];
@@ -122,11 +123,10 @@ export const getCharacters = async (
       // using location to filter characters
       if (filterKey === 'location') {
         queredCharacters = await getRepository(Character)
-        .createQueryBuilder("character")
-        .innerJoin("character.location", "location")
-        .where("location.name= :name", { name: filterValue })
-        .getMany();
-
+          .createQueryBuilder('character')
+          .innerJoin('character.location', 'location')
+          .where('location.name= :name', { name: filterValue })
+          .getMany();
       } else {
         queredCharacters = await characterRespository.find({
           where: {
@@ -134,7 +134,6 @@ export const getCharacters = async (
           }
         });
       }
-      
 
       // query to be filtered and sorted
     } else if (filterValue && sortValue) {

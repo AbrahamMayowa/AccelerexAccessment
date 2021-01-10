@@ -1,0 +1,488 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Accelerex Test Program",
+        "description": "Accelerex Technical Test",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/",
+            "description": "Local Dev, or from Heroku"
+        }
+        
+    ],
+    "tags": [
+        {
+            "name": "API",
+            "description": "API for Series in the system"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/characters": {
+            "get": {
+                "tags": [
+                    "Character"
+                ],
+                "summary": "Get all character",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sortValue",
+                        "required": false,
+                        "description": "Characters sorting value. name or gender value only",
+                        "type":"string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "filterValue",
+                        "required": false,
+                        "description": "Characters filter value",
+                        "type":"string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "filterKey",
+                        "required": false,
+                        "description": "Characters filter key. gender, status or location only",
+                        "type":"string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                        "schema": {
+                            "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type":"string",
+                                        "description":"Request status message"
+                                    },
+                                    "data": {
+                                        "type":"array",
+                                        "description": "Response data",
+                                        "items": {
+                                            "type":"object",
+                                            "properties":{
+                                        "id": {
+                                            "type": "string",
+                                            "description": "The auto-generated id of the character."
+                                        },
+                                        "firstName": {
+                                            "type": "string",
+                                            "description": "The firstName of character."
+                                        },
+                                        "lastName": {
+                                            "type": "string",
+                                            "description": "The character lastName"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "enum": ["DEAD", "ACTIVE", "UNKNOWN"],
+                                            "description": "Character status"
+                                        },
+                                        "stateOfOrigin": {
+                                            "type": "string",
+                                            "description": "The character origin"
+                                        },
+                                        "gender": {
+                                            "type": "string",
+                                            "description": "The character gender"
+                                        },
+                                        "created": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "description": "The date of the character creation."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad request.",
+                        "content": {
+                            "application/json": {
+                        "schema": {
+                            "$ref":"#/definitions/errorObject"
+                        }
+                    }
+                }
+                    }
+
+                }
+                    }
+                }
+            }
+        },
+        "/createComment": {
+            "post": {
+            "tags": [
+                "Comment"
+            ],
+            "summary": "Create a comment and link it to an episode",
+            "requestBody": {
+                "description": "Comment Object",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "comment": {
+                                    "type":"string",
+                                    "description":"Comment text",
+                                    "maxLength": 250
+                                },
+                                "episodeId": {
+                                    "type": "string",
+                                    "description": "Episode id"
+                                }
+                            }   
+                        }
+                    }
+                }
+            },
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "201": {
+                    "description": "Comment successfully created",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type":"string",
+                                    "description":"Request status message"
+                                },
+                                "data": {
+                                    "type":"object",
+                                    "description": "Response data",
+                                    "properties":{
+                                "id": {
+                                    "type": "integer",
+                                    "description": "The auto-generated id of the comment."
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "The comment text."
+                                },
+                                "episode": {
+                                    "type": "object",
+                                    "description": "The linked episode object"
+                                },
+                                "ipAddressLocation": {
+                                    "type": "string",
+                                    "description": "The commentor ip address"
+                                },
+                                "created": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "The date of the comment creation."
+                                }
+                            }
+                        }
+                    }
+                }
+                    }
+                    }
+                },
+                "404": {
+                    "description": "Failed. Episode does not exist.",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
+                }
+            }
+                },
+                "500": {
+                    "description": "Failed. Bad request",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                        }
+                    }
+                }
+            }
+            }
+        }
+        
+        },
+
+        "/episode": {
+            "get": {
+            "tags": [
+                "Episode"
+            ],
+            "summary": "Episode list with count of comment",
+            
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Episode list successfully ",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type":"string",
+                                    "description":"Request status message"
+                                },
+                                "data": {
+                                    "type":"array",
+                                    "items": {
+                                        "type": "object",
+                                    "properties":{
+                                "id": {
+                                    "type": "string",
+                                    "description": "The auto-generated id of the episode."
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "The episode name."
+                                },
+                                "episodeCode": {
+                                    "type": "string",
+                                    "description": "The unique episode code"
+                                },
+                                "releaseDate": {
+                                    "type": "string",
+                                    "format":"date",
+                                    "description": "Episode release date"
+                                },
+                                "created": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "The date of the comment creation."
+                                },
+                                "commentCount": {
+                                    "type": "integer",
+                                    "description": "The linked comment count"
+                                }
+                            }
+                        }
+                        }
+                    }
+                }
+                    }
+                    }
+                },
+                "400": {
+                    "description": "Failed. Bad request.",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
+                }
+            }
+                },
+                "500": {
+                    "description": "Failed. Bad request",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
+                }
+            }
+        }
+            }
+        }
+        
+        },
+        "/episodeCharacter/{characterId}": {
+            "parameters": [
+                {
+                    "name": "characterId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the character",
+                    "type": "string"
+                }
+            ],
+            "get": {
+            "tags": [
+                "Episode"
+            ],
+            "summary": "All episode a character featured in",
+            
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Character's episodes list successfully ",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type":"string",
+                                    "description":"Request status message"
+                                },
+                                "data": {
+                                    "type":"array",
+                                    "items": {
+                                        "type": "object",
+                                    "properties":{
+                                "id": {
+                                    "type": "string",
+                                    "description": "The auto-generated id of the episode."
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "The episode name."
+                                },
+                                "episodeCode": {
+                                    "type": "string",
+                                    "description": "The unique episode code"
+                                },
+                                "releaseDate": {
+                                    "type": "string",
+                                    "format":"date",
+                                    "description": "Episode release date"
+                                },
+                                "created": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "The date of the comment creation."
+                                }
+                            }
+                        }
+                        }
+                    }
+                }
+                    }
+                    }
+                },
+                "400": {
+                    "description": "Failed. Bad request.",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
+                }
+            }
+                },
+                "500": {
+                    "description": "Failed. Bad request",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                    }
+                }
+            }
+        }
+            }
+        }
+        },
+        "/comments": {
+            "get": {
+            "tags": [
+                "Comment"
+            ],
+            "summary": "The comment list",
+            "produces": [
+                "application/json"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Comment list successfully fetched",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type":"string",
+                                    "description":"Request status message"
+                                },
+                                "data": {
+                                    "type":"array",
+                                    "items":{
+                                    "type": "object",
+                                    "description": "Response data",
+                                    "properties":{
+                                "id": {
+                                    "type": "string",
+                                    "description": "The auto-generated id of the comment."
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "The comment text."
+                                },
+                                "ipAddressLocation": {
+                                    "type": "string",
+                                    "description": "The commentor ip address"
+                                },
+                                "created": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "The date of the comment creation."
+                                }
+                            }
+                        }
+                        }
+                    }
+                }
+                    }
+                    }
+                },
+                "500": {
+                    "description": "Failed. Bad request",
+                    "content": {
+                        "application/json": {
+                    "schema": {
+                        "$ref":"#/definitions/errorObject"
+                        }
+                    }
+                }
+            }
+            }
+        }
+
+        }
+    },
+        
+    "definitions": {
+        "errorObject": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "description": "Response status"
+                },
+                "message": {
+                    "type":"string",
+                    "descripton": "Error message"
+                }
+                }
+            }
+        }
+    }
