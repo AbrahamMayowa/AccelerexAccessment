@@ -9,7 +9,6 @@ import {
   episodeByCharacter
 } from './controller/episodeController';
 import { createComment, comments } from './controller/commentController';
-import { Character, Comment, Episode } from './entity';
 
 const router = Router();
 
