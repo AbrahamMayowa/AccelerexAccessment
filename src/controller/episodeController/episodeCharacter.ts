@@ -80,7 +80,7 @@ export const episodes = async (req: Request, res: Response): Promise<void> => {
 export const episodeByCharacter = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<unknown> => {
   try {
     const { characterId } = req.params;
     const characterRespository = getRepository(Character);

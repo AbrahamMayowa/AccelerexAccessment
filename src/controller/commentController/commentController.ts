@@ -16,7 +16,7 @@ export const createComment = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+): Promise<unknown> => {
   try {
     const { comment, episodeId } = req.body;
     const episodeRespository = getRepository(Episode);

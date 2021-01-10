@@ -7,6 +7,7 @@ import {
   SORTING_ERROR,
   FILTER_ERROR
 } from './constants';
+import { IGetCharacterQuery } from './types';
 
 /***
  * @description endpoint for creating character
@@ -68,9 +69,9 @@ export const createCharacter = async (
 export const getCharacters = async (
   req: Request,
   res: Response
-): Promise<void> => {
+): Promise<unknown> => {
   try {
-    const { sortValue, filterValue, filterKey } = req.query;
+    const { sortValue, filterValue, filterKey }: IGetCharacterQuery = req.query;
     const characterRespository = getRepository(Character);
     const supportedFilterKey = ['gender', 'status', 'location'];
     const supportedSortValue = ['name', 'gender'];
