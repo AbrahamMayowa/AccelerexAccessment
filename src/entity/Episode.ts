@@ -9,42 +9,8 @@ import {
 } from 'typeorm';
 import { Character, Comment } from './index';
 
-/**
-  @swagger
-   components:
-     schemas:
-       Episode:
-         type: object
-         required:
-           - name
-           - releaseDate
-           - episodeCode
-         properties:
-           id:
-             type: integer
-             description: The auto-generated id of the episode.
-           name:
-             type: string
-             description: The name of episode.
-           releaseDate:
-             type: string
-             format: date
-             description: The releaseDate of the episode
-           characters:
-             type: object
-             description: The characters in the episode
-           comments:
-             type: object
-             description: The comments about the episode
-           episodesCode:
-             type: string
-             description: The episode unique code
-           created:
-             type: string
-             format: date
-             description: The date of the episode creation.
-           
- */
+
+
 
 @Entity()
 export class Episode {

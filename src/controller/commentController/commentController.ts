@@ -12,6 +12,7 @@ import { getClientIp } from 'request-ip';
  * @param next
  *
  */
+
 export const createComment = async (
   req: Request,
   res: Response,
@@ -25,7 +26,7 @@ export const createComment = async (
     // user request ip address
     const clientIp = getClientIp(req);
 
-    const episode = await episodeRespository.findOne(episodeId);
+    const episode = await episodeRespository.findOne({ id: episodeId });
     if (!episode) {
       return res
         .status(404)

@@ -23,7 +23,7 @@ createConnection({
   entities: [Character, Location, Comment, Episode]
 })
   .then(async () => {
-    const port = 4000;
+    const port = 5000;
     // create express app
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));

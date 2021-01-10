@@ -12,7 +12,7 @@ import { NON_EXIST } from './constants';
  * @param next
  *
  */
-export const createEpidsode = async (
+export const createEpisode = async (
   req: Request,
   res: Response
 ): Promise<void> => {
