@@ -4,8 +4,7 @@ import {
   Column,
   ManyToMany,
   OneToOne,
-  JoinColumn,
-  CreateDateColumn
+  JoinColumn
 } from 'typeorm';
 import { Episode } from './Episode';
 import { Location } from './index';
@@ -60,7 +59,7 @@ export class Character {
   @ManyToMany(() => Episode, (episode) => episode.characters)
   episodes: Episode[];
 
-  @CreateDateColumn({
+  @Column({
     type: 'timestamp',
     nullable: false
   })

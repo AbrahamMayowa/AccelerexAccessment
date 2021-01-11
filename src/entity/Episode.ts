@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
   ManyToMany,
   JoinTable,
   OneToMany
@@ -37,7 +36,7 @@ export class Episode {
   @OneToMany(() => Comment, (comment) => comment.episode)
   comments: Comment[];
 
-  @CreateDateColumn({
+  @Column({
     type: 'timestamp',
     nullable: false
   })

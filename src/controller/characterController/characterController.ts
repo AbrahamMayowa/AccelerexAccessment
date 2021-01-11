@@ -39,7 +39,8 @@ export const createCharacter = async (
     const newLocation = locationRespository.create({
       name: locationName,
       latitude: locationLatitude,
-      longitude: locationLongitude
+      longitude: locationLongitude,
+      created: new Date()
     });
 
     // save new location
@@ -51,7 +52,8 @@ export const createCharacter = async (
       status,
       stateOfOrigin,
       gender,
-      location: newLocation
+      location: newLocation,
+      created: new Date()
     });
     const savedPost = await characterRespository.save(newCharacter);
     res.status(201).send({ status: SUCCESS_RESPONSE_STATUS, data: savedPost });

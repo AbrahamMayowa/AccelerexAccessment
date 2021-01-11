@@ -31,7 +31,7 @@ export class Comment {
   })
   ipAddressLocation: string;
 
-  @CreateDateColumn({
+  @Column({
     type: 'timestamp',
     nullable: false
   })

@@ -36,7 +36,8 @@ export const createComment = async (
     const newComment = commentRespository.create({
       comment,
       episode,
-      ipAddressLocation: clientIp
+      ipAddressLocation: clientIp,
+      created: new Date()
     });
 
     const savedComment = await commentRespository.save(newComment);

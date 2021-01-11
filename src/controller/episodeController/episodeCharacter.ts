@@ -27,7 +27,8 @@ export const createEpisode = async (
       name,
       releaseDate: new Date(releaseDate),
       episodeCode,
-      characters
+      characters,
+      created: new Date()
     });
     const savedEpisode = await episodeRespository.save(newEpisode);
 

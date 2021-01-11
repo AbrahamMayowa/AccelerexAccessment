@@ -1,8 +1,7 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn
+  Column
 } from 'typeorm';
 
 @Entity()
@@ -27,7 +26,7 @@ export class Location {
   })
   longitude: string;
 
-  @CreateDateColumn({
+  @Column({
     type: 'timestamp',
     nullable: false
   })
