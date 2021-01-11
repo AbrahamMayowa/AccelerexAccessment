@@ -58,9 +58,12 @@
                         "type":"string"
                     }
                 ],
+                "produces": [
+                    "application/json"
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Character properties",
                         "content": {
                             "application/json": {
                         "schema": {
@@ -112,15 +115,16 @@
                         }
                         }
                     },
-                    "400": {
-                        "description": "Failed. Bad request.",
+                    
+                    "404": {
+                        "description": "Failed. Episode does not exist.",
                         "content": {
                             "application/json": {
                         "schema": {
                             "$ref":"#/definitions/errorObject"
                         }
                     }
-                }
+                    }
                     }
 
                 }
@@ -176,7 +180,7 @@
                                     "description": "Response data",
                                     "properties":{
                                 "id": {
-                                    "type": "integer",
+                                    "type": "string",
                                     "description": "The auto-generated id of the comment."
                                 },
                                 "comment": {
