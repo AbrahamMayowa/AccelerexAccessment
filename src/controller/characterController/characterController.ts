@@ -133,6 +133,9 @@ export const getCharacters = async (
         queredCharacters = await characterRespository.find({
           where: {
             [filterKey]: filterValue
+          },
+          order: {
+            created: "DESC"
           }
         });
       }
@@ -158,7 +161,11 @@ export const getCharacters = async (
       });
     } else {
       // only query without sorting or filter
-      queredCharacters = await characterRespository.find();
+      queredCharacters = await characterRespository.find({
+        order: {
+          created: "DESC"
+        }
+      });
     }
 
     res
